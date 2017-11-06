@@ -2,6 +2,8 @@
 #define WORD_H
 
 #include <string>
+#include <algorithm>
+#define MIN_QUERY_LENGTH 3
 using namespace std;
 
 // empty classes to represent different exceptions
@@ -24,7 +26,8 @@ public:
 	bool isQueryable() const;
 
 private:	
-	string _word;	
+	string _word;
+	bool wordContainsSpaces();
 };
 
 #endif
