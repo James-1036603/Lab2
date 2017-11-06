@@ -2,7 +2,9 @@
 #define LINE_H
 
 #include "Word.h"
-#include <string>
+#include <string.h>
+#include <vector>
+#include <sstream>
 using namespace std;
 
 class Line
@@ -16,7 +18,9 @@ public:
 	bool contains(const Word& search_word) const;
 
 private:		
-
+	std::vector<Word> _wordsInLine;
+	void populateVectorWithWords(const string& line);
+	bool searchForWordInLine(const Word& searchWord) const;
 };
 
 #endif
