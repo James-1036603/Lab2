@@ -20,3 +20,4 @@ int main()
 
     return 0;
 }
+//It is expected that capacity and size should be the same. After running, it was seen that the Capacity increases in powers of 2 as the size reaches it. This is likely because as the vector increases in size, it allocates more memory so that consecutive memory does not have to be allocated each time the vector is increased in size;
