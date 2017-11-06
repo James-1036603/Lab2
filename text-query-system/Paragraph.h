@@ -19,6 +19,7 @@ public:
 	bool contains(const Word& search_word, vector<int>& line_numbers) const;	
 
 private:	
+	std::vector<Line> _paragraph;
 
 };
 
