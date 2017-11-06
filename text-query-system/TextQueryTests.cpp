@@ -125,22 +125,59 @@ TEST_CASE("Word which is not queryable cannot be found") {
 
 // ----------------------------------------------------
 
-//TEST_CASE("Word cannot be found in empty Paragraph") {
-//}
-//
-//TEST_CASE("Word not present in Paragraph cannot be found") {
-//}
-//
-//TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
-//}
-//
-//TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
-//}
-//
-//TEST_CASE("Line numbers returned account for an empty Line") {
-//// If the first line of the paragraph is empty, and the word being searched for
-//// is on the second line, the vector returned should be: [2]
-//}
+TEST_CASE("Word cannot be found in empty Paragraph") {
+	Paragraph testParagraph;
+	Word search_word("This");
+	std::vector<int> numberLines;
+	CHECK_FALSE(testParagraph.contains(search_word, numberLines));
+}
+
+TEST_CASE("Word not present in Paragraph cannot be found") {
+	Line contentLine("These are not the words you are looking for.");
+	Paragraph testParagraph;
+	testParagraph.addLine(contentLine);
+	Word search_word("This");
+	std::vector<int> numberLines;
+	CHECK_FALSE(testParagraph.contains(search_word, numberLines));
+}
+
+TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
+	Line contentLine("This is the word you are looking for.");
+	Paragraph testParagraph;
+	testParagraph.addLine(contentLine);
+	Word search_word("This");
+	std::vector<int> numberLines;
+	CHECK(testParagraph.contains(search_word, numberLines));
+	CHECK(numberLines[0]==1);
+}
+
+TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
+	Line contentLine("This is the word you are looking for.");
+	Line contentLine2("And so is this.");
+	Paragraph testParagraph;
+	testParagraph.addLine(contentLine);
+	testParagraph.addLine(contentLine2);
+	Word search_word("This");
+	std::vector<int> numberLines;	
+	CHECK(numberLines[0]==1);
+	CHECK(numberLines[1]==2);
+}
+
+TEST_CASE("Line numbers returned account for an empty Line") {
+// If the first line of the paragraph is empty, and the word being searched for
+// is on the second line, the vector returned should be: [2]
+	Line contentLine("This is the word you are looking for.");
+	Line contentLine2("");
+	Line contentLine3("And so is this.");
+	Paragraph testParagraph;
+	testParagraph.addLine(contentLine);
+	testParagraph.addLine(contentLine2);
+	testParagraph.addLine(contentLine3);
+	Word search_word("This");
+	std::vector<int> numberLines;	
+	CHECK(numberLines[0]==1);
+	CHECK(numberLines[1]==3);
+}
 //
 //// ----------------------------------------------------
 //
